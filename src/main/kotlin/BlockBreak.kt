@@ -1,5 +1,6 @@
 import org.bukkit.Location
 import org.bukkit.Material
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockBreakEvent
@@ -10,13 +11,14 @@ object BlockBreak : Listener {
 
     @EventHandler
     fun onBlockBreak(e: BlockBreakEvent) {
+        val player: Player = e.player
         val block: Material = e.block.type
 
         if (e.isCancelled) {
             return
         }
 
-        val uuid: UUID = e.player.uniqueId
+        val uuid: UUID = player.uniqueId
         map.putIfAbsent(uuid, HashSet())
         val set: MutableSet<Location>? = map[uuid]
 
@@ -31,5 +33,7 @@ object BlockBreak : Listener {
 
         val theMap = KotlinPlugin.instance.pointsMap
         theMap[uuid] = theMap[uuid]?.plus(1.0) ?: 1.0
+
+        player.sendMessage("You broke $block and received 1 point.")
     }
 }

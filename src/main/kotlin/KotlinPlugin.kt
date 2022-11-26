@@ -6,14 +6,13 @@ import org.bukkit.entity.Player
 class KotlinPlugin : JavaPlugin() {
 
     companion object {
-        // Using lateinit, the initial value does not need to be assigned.
-        lateinit var instance: KotlinPlugin
-        var pointsMap = null
+        lateinit var instance: KotlinPlugin // Using lateinit, the initial value does not need to be assigned
     }
 
     override fun onEnable() {
         instance = this
-        getCommand("points")!!.setExecutor(PointsCommand)
+        getCommand("points")?.setExecutor(PointsCommand)
+        getCommand("chat")?.setExecutor(GroupChat)
 
         Bukkit.getLogger().info("Enabled KotlinPlugin.kt...")
         Bukkit.getPluginManager().registerEvents(BlockBreak, this)
@@ -22,7 +21,7 @@ class KotlinPlugin : JavaPlugin() {
     val pointsMap = mutableMapOf<UUID, Double>()
 }
 
-// Extension function
+// Extension function + Elvis operator
 fun Player.getPoints(): Double = KotlinPlugin.instance.pointsMap[this.uniqueId] ?: 0.0
 
 

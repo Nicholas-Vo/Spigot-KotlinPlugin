@@ -5,4 +5,6 @@ version: ${project.version}
 
 commands:
   points:
-    usage: 'points command'
+    usage: '/points'
+  chat:
+    usage: '/chat <message>'
