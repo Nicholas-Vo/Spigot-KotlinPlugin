@@ -1,0 +1,8 @@
+main: KotlinPlugin
+name: KotlinPlugin
+author: Nick Voss
+version: ${project.version}
+
+commands:
+  points:
+    usage: 'points command'
